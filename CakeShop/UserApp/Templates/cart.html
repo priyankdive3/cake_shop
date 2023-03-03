@@ -1,0 +1,89 @@
+{% extends "homepage.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        th {
+            border: 1px, solid;
+            padding: 20px;
+        }
+
+        td {
+            border: 1px solid;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="text/javascript" > 
+        function increment(myid)
+        {
+            txtQty = document.getElementById(myid);
+            if (txtQty.value < 10)
+            {
+                txtQty.value = parseInt(txtQty.value) + 1;
+            }     
+        }
+        function decrement(myid)
+        {
+            txtQty = document.getElementById(myid);
+            if (txtQty.value < 10)
+            {
+                txtQty.value = parseInt(txtQty.value) - 1;
+            }     
+        }
+    </script>
+    <center>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
+                    <th>Action</th>
+                    <th>SubTotal</th>
+            
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for it in item %}
+                <tr>
+                    <td>{{it.cakes.p_name}}</td>
+                    <td>{{it.cakes.price}}</td>
+                    <td><img src="{{it.cakes.image.url}}" /></td>
+                    <!-- <td>{{it.qty}}</td> -->
+                    <td><button class="btn btn-warning" type="submit" 
+                        onclick="decrement('{{it.cakes.id}}')" name="action" > - </button>
+
+                        <input type="text" name="qty" id="{{it.cakes.id}}" value=" {{it.qty}}" size="4" />   
+                        
+                        <button class="btn btn-warning" type="submit" 
+                        onclick="increment('{{it.cakes.id}}')" name="action" > + </button>
+                    </td>
+                       
+                    <td><a href="delete/{{it.id}}">Delete</a></td>
+                    <td>{% widthratio it.cakes.price 1 it.qty %}</td>
+                    
+                </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+        <h3> {{request.session.total}} </h3>
+        <a href="/Makepayment" class="btn btn-warning btn-lg">Payment</a>
+
+    </center>
+</body>
+
+</html>
+
+{% endblock %}

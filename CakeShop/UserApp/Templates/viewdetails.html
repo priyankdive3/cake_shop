@@ -1,0 +1,56 @@
+{% extends "homepage.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        th{
+            border: 1px,solid;
+            padding: 20px;
+        }
+        td{
+            border: 1px solid;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+<form method="post" action="/cart">
+    {% csrf_token %}
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Quantity</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+        <tbody>
+        <tr>
+            <td>{{prod.p_name}}</td>
+            <td>{{prod.price}}</td>
+            <td><img src="{{prod.image.url}}"/></td>
+            <td><select name="qty">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select></td>
+            <td>{{prod.description}}</td>
+        </tr>
+    </tbody>
+    </table>
+    <input type="hidden" value="{{prod.id}}" name="prodid">
+    <button type="submit" class="btn-primary">Add to Cart</button>
+</form>
+</center>
+</body>
+</html>
+
+{% endblock %}
